@@ -23,6 +23,22 @@ def add_entry():
     conn.commit()
     conn.close()
 
+def search_entries():
+    # Prompt the user for a date and retrieve all rows from the database with that date
+    search_date = input("Enter a date (YYYY-MM-DD): ")
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM entries WHERE date = ?", (search_date,))
+    rows = c.fetchall()
+    conn.close()
+
+    # Display the rows to the user
+    if len(rows) == 0:
+        print("No entries found for that date.")
+    else:
+        for row in rows:
+            print(f"{row[1]}: {row[2]}")
+
 
 def main():
     while True:
