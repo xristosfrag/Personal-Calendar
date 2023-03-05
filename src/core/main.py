@@ -10,26 +10,18 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, activities TEXT)")
     conn.commit()
     conn.close()
-    
+
 def add_entry():
-    # Get today's date
+    # Get today's date and prompt the user for their activities
     today = datetime.date.today()
-
-    # Prompt the user for their activities
     activities = input(f"What did you do on {today}? ")
-    
-    # Append the activities to the text file
-    pathlib.Path("../../calendar/").mkdir(parents=True, exist_ok=True)
-    with open("../../calendar/calendar.txt", "a+") as f:
-        f.write(f"{today}: {activities}\n")
 
-def view_entries():
-    # Read the contents of the text file
-    with open("calendar.txt", "r") as f:
-        contents = f.read()
-
-    # Display the contents to the user
-    print(contents)
+    # Insert a new row into the database
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("INSERT INTO entries (date, activities) VALUES (?, ?)", (today, activities))
+    conn.commit()
+    conn.close()
 
 
 def main():
