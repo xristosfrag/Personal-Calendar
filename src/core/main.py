@@ -6,9 +6,10 @@ def add_entry():
 
     # Prompt the user for their activities
     activities = input(f"What did you do on {today}? ")
-
+    
     # Append the activities to the text file
-    with open("calendar.txt", "a") as f:
+    pathlib.Path("../../calendar/").mkdir(parents=True, exist_ok=True)
+    with open("../../calendar/calendar.txt", "a+") as f:
         f.write(f"{today}: {activities}\n")
 
 def view_entries():
@@ -18,6 +19,7 @@ def view_entries():
 
     # Display the contents to the user
     print(contents)
+
     
 def main():
     while True:
