@@ -1,3 +1,5 @@
+import datetime
+
 def main():
     while True:
         # Display the menu options
