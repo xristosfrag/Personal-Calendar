@@ -11,6 +11,14 @@ def add_entry():
     with open("calendar.txt", "a") as f:
         f.write(f"{today}: {activities}\n")
 
+def view_entries():
+    # Read the contents of the text file
+    with open("calendar.txt", "r") as f:
+        contents = f.read()
+
+    # Display the contents to the user
+    print(contents)
+    
 def main():
     while True:
         # Display the menu options
