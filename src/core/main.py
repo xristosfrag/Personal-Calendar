@@ -3,6 +3,14 @@ import sqlite3
 
 DB_FILE = "calendar.db"
 
+def create_table():
+    # Connect to the database and create the table if it doesn't exist
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, activities TEXT)")
+    conn.commit()
+    conn.close()
+    
 def add_entry():
     # Get today's date
     today = datetime.date.today()
