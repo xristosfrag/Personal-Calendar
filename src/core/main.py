@@ -1,5 +1,16 @@
 import datetime
 
+def add_entry():
+    # Get today's date
+    today = datetime.date.today()
+
+    # Prompt the user for their activities
+    activities = input(f"What did you do on {today}? ")
+
+    # Append the activities to the text file
+    with open("calendar.txt", "a") as f:
+        f.write(f"{today}: {activities}\n")
+
 def main():
     while True:
         # Display the menu options
