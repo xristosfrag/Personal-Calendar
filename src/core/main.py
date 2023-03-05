@@ -1,4 +1,7 @@
 import datetime
+import sqlite3
+
+DB_FILE = "calendar.db"
 
 def add_entry():
     # Get today's date
@@ -20,7 +23,7 @@ def view_entries():
     # Display the contents to the user
     print(contents)
 
-    
+
 def main():
     while True:
         # Display the menu options
