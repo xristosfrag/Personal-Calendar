@@ -41,6 +41,7 @@ def search_entries():
 
 
 def main():
+    create_table()
     while True:
         # Display the menu options
         print("1. Add a new entry")
