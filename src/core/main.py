@@ -81,19 +81,21 @@ def main():
     while True:
         # Display the menu options
         print("1. Add a new entry")
-        print("2. View previous entries")
-        print("3. Quit")
+        print("2. Search entries")
+        print("3. Update an entry")
+        print("4. Quit")
 
         # Prompt the user for their choice
         choice = input("Enter your choice: ")
+        print()
 
         # Call the appropriate function based on the user's choice
         if choice == "1":
             add_entry()
         elif choice == "2":
-            view_entries()
+            search_entries("")
         elif choice == "3":
-            break
+            update_entry()
         else:
             print("Invalid choice. Please try again.")
 
