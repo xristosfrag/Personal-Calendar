@@ -1,7 +1,7 @@
 import datetime
 import sqlite3
 
-DB_FILE = "calendar.db"
+DB_FILE = "../../database/calendar.db"
 
 def create_table():
     # Connect to the database and create the table if it doesn't exist
@@ -37,7 +37,43 @@ def search_entries():
         print("No entries found for that date.")
     else:
         for row in rows:
-            print(f"{row[1]}: {row[2]}")
+                print(f"{row[0]}: {row[1]}")
+        return rows
+
+
+def update_entry():
+    # Prompt the user for a date and retrieve the corresponding activities from the database
+    search_date = input("Enter a date (YYYY-MM-DD): ")
+    activities = search_entries(search_date)
+    if activities is []:
+        return
+
+    # Ask the user if they want to update all or part of the activities
+    print(f"Activities for {search_date}:")
+    for row in activities:
+        print(f"Id: {row[0]}, Entry: {row[1]}")
+    choice = input("Select id of entry to update or type 'x' to exit: ")
+
+    # Update the corresponding row in the database based on the user's choice
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT activities FROM entries WHERE id = ?", (choice,))
+    row = c.fetchone()
+    activities = row[0]
+
+
+    
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    if choice == "1":
+        new_activity = input("Update your activity: ")
+        c.execute("UPDATE entries SET activities = ? WHERE id = ? and date = ?", (new_activity, choice, search_date))
+    elif choice == 'x':
+        pass
+    else:
+        print("Invalid choice.")
+    conn.commit()
+    conn.close()
 
 
 def main():
